@@ -1,27 +1,32 @@
-class Animal:
-    alive = []
+from __future__ import annotations
+from typing import List
 
-    def __init__(self, name: str = "", health: int = 100, hidden: bool = False):
-        self.health = health
-        self.name = name
-        self.hidden = hidden
+
+class Animal:
+    alive: List["Animal"] = []
+
+    def __init__(self, name: str = "", health: int = 100, hidden: bool = False) -> None:
+        self.name: str = name
+        self.health: int = health
+        self.hidden: bool = hidden
         Animal.alive.append(self)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{{Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}}}"
 
-    def die(self):
+    def die(self) -> None:
         if self in Animal.alive:
             Animal.alive.remove(self)
 
 
 class Herbivore(Animal):
-    def hide(self):
+    def hide(self) -> None:
         self.hidden = not self.hidden
 
 
 class Carnivore(Animal):
-    def bite(self, other):
+    def bite(self, other: Animal) -> None:
+        # Can bite only herbivores that are not hiding
         if not isinstance(other, Herbivore):
             return
         if other.hidden:
