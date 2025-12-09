@@ -1,9 +1,8 @@
 from __future__ import annotations
-from typing import List
 
 
 class Animal:
-    alive: List["Animal"] = []
+    alive: list["Animal"] = []
 
     def __init__(self, name: str = "", health: int = 100, hidden: bool = False) -> None:
         self.name: str = name
@@ -26,7 +25,6 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     def bite(self, other: Animal) -> None:
-        # Can bite only herbivores that are not hiding
         if not isinstance(other, Herbivore):
             return
         if other.hidden:
